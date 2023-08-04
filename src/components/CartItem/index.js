@@ -8,7 +8,11 @@ import './index.css'
 const CartItem = props => (
   <CartContext.Consumer>
     {value => {
-      const {removeCartItem, incrementCartItemQuantity, decrementCartItemQuantity} = value
+      const {
+        removeCartItem,
+        incrementCartItemQuantity,
+        decrementCartItemQuantity,
+      } = value
       const {cartItemDetails} = props
       const {id, title, brand, quantity, price, imageUrl} = cartItemDetails
 
@@ -18,7 +22,7 @@ const CartItem = props => (
 
       const onIncreaseCartItem = () => {
         incrementCartItemQuantity(id)
-      }      
+      }
 
       const onDecreaseCartItem = () => {
         decrementCartItemQuantity(id)
@@ -33,11 +37,21 @@ const CartItem = props => (
               <p className="cart-product-brand">by {brand}</p>
             </div>
             <div className="cart-quantity-container">
-              <button type="button" className="quantity-controller-button" onClick = {onDecreaseCartItem} data-testid="minus">
+              <button
+                type="button"
+                className="quantity-controller-button"
+                onClick={onDecreaseCartItem}
+                data-testid="minus"
+              >
                 <BsDashSquare color="#52606D" size={12} />
               </button>
-              <h1 className="cart-quantity"> {quantity} </h1>
-              <button type="button" className="quantity-controller-button" onClick={onIncreaseCartItem}  data-testid="plus" >
+              <p className="cart-quantity"> {quantity} </p>
+              <button
+                type="button"
+                className="quantity-controller-button"
+                onClick={onIncreaseCartItem}
+                data-testid="plus"
+              >
                 <BsPlusSquare color="#52606D" size={12} />
               </button>
             </div>
@@ -47,7 +61,7 @@ const CartItem = props => (
                 className="remove-button"
                 type="button"
                 onClick={onRemoveCartItem}
-                data-testid="remove" 
+                data-testid="remove"
               >
                 Remove
               </button>

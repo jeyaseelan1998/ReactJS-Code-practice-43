@@ -19,35 +19,45 @@ class App extends Component {
 
   addCartItem = product => {
     const {cartList} = this.state
-    const {id} = product
-    const isProductAlreadyExists = cartList.find(eachProduct => eachProduct.id === id)
+    const {id, quantity} = product
+    const isProductAlreadyExists = cartList.find(
+      eachProduct => eachProduct.id === id,
+    )
 
-    if(isProductAlreadyExists !== undefined) {
-      this.incrementCartItemQuantity(id)
-    } 
-    else {
+    if (isProductAlreadyExists !== undefined) {
+      this.incrementCartItemQuantity(id, quantity)
+    } else {
       this.setState(prevState => ({cartList: [...prevState.cartList, product]}))
     }
   }
 
-  incrementCartItemQuantity = productId => {
+  incrementCartItemQuantity = (productId, quality = 1) => {
     this.setState(prevState => ({
-      cartList: prevState.cartList.map(eachProduct => 
-        eachProduct.id === productId ? {...eachProduct, quantity: eachProduct.quantity + 1} : eachProduct)
+      cartList: prevState.cartList.map(eachProduct =>
+        eachProduct.id === productId
+          ? {...eachProduct, quantity: eachProduct.quantity + quality}
+          : eachProduct,
+      ),
     }))
   }
 
   decrementCartItemQuantity = productId => {
     this.setState(prevState => ({
-      cartList: prevState.cartList.map(eachProduct => 
-        eachProduct.id === productId ? {...eachProduct, quantity: eachProduct.quantity - 1} : eachProduct)
-        .filter(eachProduct => eachProduct.quantity > 0)
+      cartList: prevState.cartList
+        .map(eachProduct =>
+          eachProduct.id === productId
+            ? {...eachProduct, quantity: eachProduct.quantity - 1}
+            : eachProduct,
+        )
+        .filter(eachProduct => eachProduct.quantity > 0),
     }))
   }
 
   removeCartItem = productId => {
     this.setState(prevState => ({
-      cartList: prevState.cartList.filter(eachProduct => eachProduct.id !== productId)
+      cartList: prevState.cartList.filter(
+        eachProduct => eachProduct.id !== productId,
+      ),
     }))
   }
 
@@ -66,7 +76,7 @@ class App extends Component {
           removeCartItem: this.removeCartItem,
           incrementCartItemQuantity: this.incrementCartItemQuantity,
           decrementCartItemQuantity: this.decrementCartItemQuantity,
-          removeAllCartItems: this.removeAllCartItems
+          removeAllCartItems: this.removeAllCartItems,
         }}
       >
         <Switch>
